@@ -5,7 +5,7 @@ mutation {
   }) {
     id
   }
-  
+
   second: createLink(data: {
     description: "Appenzell, Switzerland"
     url: "https://www.facebook.com/"
