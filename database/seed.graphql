@@ -1,0 +1,22 @@
+mutation {
+  first: createLink(data: {
+    description: "Bellwald, Switzerland"
+    url: "http://pinterest.com/"
+  }) {
+    id
+  }
+  
+  second: createLink(data: {
+    description: "Appenzell, Switzerland"
+    url: "https://www.facebook.com/"
+  }) {
+    id
+  }
+
+  third: createLink(data: {
+    description: "Mürren, Switzerland"
+    url: "https://www.google.com/"
+  }) {
+    id
+  }
+}
