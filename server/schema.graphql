@@ -6,4 +6,18 @@ type Query {
 
 type Mutation {
   post(url: String!, description: String!): Link!
+  signup(email: String!, password: String!, name: String): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+# do not import User because we want to redefine it without password field
+type User {
+  id: ID!
+  email: String!
+  name: String
 }
