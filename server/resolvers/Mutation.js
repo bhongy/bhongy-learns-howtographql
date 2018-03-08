@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { env } = require('../utils');
+const { APP_SECRET } = require('../utils');
 
 function post(parent, args, context, info) {
   const { description, url } = args;
@@ -11,7 +11,7 @@ async function signup(parent, args, context, info) {
   const password = await bcrypt.hash(args.password, 10);
   const data = { ...args, password };
   const user = await context.db.mutation.createUser({ data });
-  const token = jwt.sign({ userId: user.id }, env.APP_SECRET);
+  const token = jwt.sign({ userId: user.id }, APP_SECRET);
   return { user, token };
 }
 
@@ -27,7 +27,7 @@ async function login(parent, args, context, info) {
     throw new Error('Invalid password');
   }
 
-  const token = jwt.sign({ userId: user.id }, env.APP_SECRET);
+  const token = jwt.sign({ userId: user.id }, APP_SECRET);
   return { user, token };
 }
 
