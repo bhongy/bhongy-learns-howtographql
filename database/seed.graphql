@@ -19,4 +19,16 @@ mutation {
   ) {
     id
   }
+
+  user: createUser(
+    data: {
+      email: "email@thanik.me",
+      password: "puppies!",
+      name: "Thanik Bhongbhibhat"
+    }
+  ) {
+    id
+    email
+    token
+  }
 }

@@ -17,7 +17,7 @@ function post(parent, args, context, info) {
     postedBy: {
       connect: { id: userId },
     },
-  }
+  };
   return context.db.mutation.createLink({ data }, info);
 }
 
@@ -45,8 +45,40 @@ async function login(parent, args, context, info) {
   return { user, token };
 }
 
+async function vote(parent, args, context, info) {
+  const userId = getUserId(context);
+  const { linkId } = args;
+  // ? check if the user is allowed to write to the link here ?
+  //   e.g. the link with id: `linkId` exists or authorization for this link
+  //   it currently throw at createVote - doing the check here
+  //   can provide better, more focused error
+  //   but we might have to read from db (adding load)
+  //
+  // const linkExists = await context.db.exits.Link({ id: linkID });
+  const alreadyVoted = await context.db.exists.Vote({
+    user: { id: userId },
+    link: { id: linkId },
+  });
+
+  if (alreadyVoted) {
+    throw new Error(`Already voted for link: ${linkId}`);
+  }
+
+  // if the link for `linkId` doesn't exist - it will throw here
+  return context.db.mutation.createVote(
+    {
+      data: {
+        user: { connect: { id: userId } },
+        link: { connect: { id: linkId } },
+      },
+    },
+    info
+  );
+}
+
 module.exports = {
   post,
   signup,
   login,
+  vote,
 };
