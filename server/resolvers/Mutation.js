@@ -1,10 +1,24 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { APP_SECRET } = require('../utils');
+const { APP_SECRET, getUserId } = require('../utils');
 
 function post(parent, args, context, info) {
   const { description, url } = args;
-  return context.db.mutation.createLink({ data: { description, url } }, info);
+  // TODO: toy with an idea of having `context.viewer` or `context.me`
+  //   and avoid more imperative "getUserId" just post as "me"
+  //   the idea is once the user is in the system they are authenticated
+  //   if auth status changes, context.me should change
+  //   make sure call sites don't have to null check though
+  //   maybe can define getter that throws then users can catch it
+  const userId = getUserId(context);
+  const data = {
+    description,
+    url,
+    postedBy: {
+      connect: { id: userId },
+    },
+  }
+  return context.db.mutation.createLink({ data }, info);
 }
 
 async function signup(parent, args, context, info) {
