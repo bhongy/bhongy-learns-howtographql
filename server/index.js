@@ -11,12 +11,12 @@ const resolvers = {
 };
 
 const server = new GraphQLServer({
-  typeDefs: './server/schema.graphql',
+  typeDefs: './schema.graphql',
   resolvers,
   context: req => ({
     ...req,
     db: new Prisma({
-      typeDefs: './server/generated/prisma.graphql',
+      typeDefs: './generated/prisma.graphql',
       endpoint: 'http://localhost:4466/server/dev',
       secret: 'mysecret123',
       debug: true, // log all GraphQL queryies & mutations
