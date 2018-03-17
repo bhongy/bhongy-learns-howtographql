@@ -6,6 +6,9 @@
   "author": "Thanik Bhongbhibhat <email@thanik.me>",
   "license": "MIT",
   "private": true,
+  "packages": [
+    "client"
+  ],
   "scripts": {
     "start": "node server/index.js",
     "dev": "npm-run-all --parallel start playground",
