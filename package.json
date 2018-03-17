@@ -5,9 +5,5 @@
   "repository": "git@github.com:bhongy/learns-howtographql.git",
   "author": "Thanik Bhongbhibhat <email@thanik.me>",
   "license": "MIT",
-  "private": true,
-  "packages": [
-    "client",
-    "server"
-  ]
+  "private": true
 }
