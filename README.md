@@ -16,6 +16,7 @@ You'll need a Docker cluster to run local Prima database.
 ```
 
 ## Client
+... work in progress ...
 
 ## Ports
 - `:8001` Apollo Client
@@ -23,3 +24,6 @@ You'll need a Docker cluster to run local Prima database.
 - `:3000` Playground (GraphiQL) Client
 - `:4000` GraphQL Server
 - `:4466/server/dev` Prisma Database
+
+## TODO
+[ ] Set up Yarn Workspace (need to resolve Playground (Inquirer) cannot find `rxjs/Rx`) for some reason
