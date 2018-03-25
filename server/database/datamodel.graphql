@@ -6,6 +6,8 @@ type Vote {
 
 type Link {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   description: String!
   url: String!
   postedBy: User
