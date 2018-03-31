@@ -3,8 +3,10 @@ import { Switch, Route } from 'react-router-dom';
 import * as routes from '@root/routes';
 import '@styles/App.css';
 import Header from '@components/Header';
+import Login from '@components/Login';
 import LinkList from '@components/LinkList';
 import CreateLink from '@components/CreateLink';
+import { authToken } from '@root/services';
 
 class App extends Component {
   render() {
@@ -14,7 +16,10 @@ class App extends Component {
         <div className="ph3 pv1 background-gray">
           <Switch>
             <Route exact path={routes.root} component={LinkList} />
-            <Route exact path={routes.create} component={CreateLink} />
+            {authToken.check() &&
+              <Route exact path={routes.create} component={CreateLink} />
+            }
+            <Route exact path={routes.login} component={Login} />
           </Switch>
         </div>
       </div>
