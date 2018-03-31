@@ -6,14 +6,14 @@ import { extractFormData } from '@root/utils';
 import * as routes from '@root/routes';
 import { authToken } from '@root/services';
 
-class Login extends Component {
+class Signup extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
     const form = event.currentTarget;
     const variables = extractFormData(form);
-    const result = await this.props.loginMutation({ variables });
-    const { token } = result.data.login;
+    const result = await this.props.signupMutation({ variables });
+    const { token } = result.data.signup;
     authToken.save(token);
 
     this.props.history.push(routes.root);
@@ -22,8 +22,13 @@ class Login extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <h4 className="mv3">Login</h4>
+        <h4 className="mv3">Sign Up</h4>
         <div className="flex flex-column">
+          <input
+            type="text"
+            name="name"
+            placeholder="Your name"
+          />
           <input
             type="text"
             name="email"
@@ -37,8 +42,8 @@ class Login extends Component {
         </div>
         <div className="flex mt3">
           <button className="pointer mr2 button">create account</button>
-          <Link className="pointer button" to={routes.signup}>
-            need to create an account?
+          <Link className="pointer button" to={routes.login}>
+            already have an account?
           </Link>
         </div>
       </form>
@@ -46,9 +51,9 @@ class Login extends Component {
   }
 }
 
-const loginMutation = gql`
-  mutation LoginMutation($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+const signupMutation = gql`
+  mutation SignupMutation($email: String!, $password: String!, $name: String) {
+    signup(email: $email, password: $password, name: $name) {
       token
       user {
         email
@@ -57,4 +62,4 @@ const loginMutation = gql`
   }
 `;
 
-export default graphql(loginMutation, { name: 'loginMutation' })(Login);
+export default graphql(signupMutation, { name: 'signupMutation' })(Signup);
