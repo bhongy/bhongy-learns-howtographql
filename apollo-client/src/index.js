@@ -6,9 +6,9 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import '@styles/index.css';
+import registerServiceWorker from '@root/registerServiceWorker';
 import App from '@components/App';
-import registerServiceWorker from './registerServiceWorker';
+import '@styles/index.css';
 
 const client = new ApolloClient({
   link: new HttpLink({
